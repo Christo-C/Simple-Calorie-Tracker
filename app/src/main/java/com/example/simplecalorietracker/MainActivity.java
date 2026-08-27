@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -45,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements
         for (Food food: dataList){
             total += food.getCalories();
         }
-        totalCalories.setText("Calories: "+total);
+        totalCalories.setText("Total Calories: "+total);
     }
 
     @Override
@@ -66,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements
 
         totalCalories = findViewById(R.id.total_calories);
 
-        FloatingActionButton fab = findViewById(R.id.add_food);
+        Button fab = findViewById(R.id.add_food);
         fab.setOnClickListener(v -> {
             new AddFoodFragment().show(getSupportFragmentManager(), "Add Food");
         });
