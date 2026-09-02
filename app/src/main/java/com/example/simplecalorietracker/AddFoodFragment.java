@@ -76,7 +76,13 @@ public class AddFoodFragment extends DialogFragment {
                 .setPositiveButton("OK", (dialog, which) -> {
                     String foodName = editFoodName.getText().toString();
                     String caloriesAmt = editCaloriesAmt.getText().toString();
-                    if (food == null){
+                    if (caloriesAmt.isBlank()){
+                        caloriesAmt = "0";
+                    }
+                    if (foodName.isBlank()) {
+                        dialog.dismiss();
+                    }
+                    else if (food == null){
                         listener.addFood(new Food(foodName, Integer.parseInt(caloriesAmt)));
                     }
                     else{
