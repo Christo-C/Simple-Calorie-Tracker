@@ -67,9 +67,16 @@ public class MainActivity extends AppCompatActivity implements
 
         totalCalories = findViewById(R.id.total_calories);
 
-        Button fab = findViewById(R.id.add_food);
-        fab.setOnClickListener(v -> {
+        Button addFoodButton = findViewById(R.id.add_food);
+        addFoodButton.setOnClickListener(v -> {
             new AddFoodFragment().show(getSupportFragmentManager(), "Add Food");
+        });
+
+        Button clearFoodButton = findViewById(R.id.clear_food);
+        clearFoodButton.setOnClickListener(v -> {
+            dataList.clear();
+            updateTotalCalories();
+            foodAdapter.notifyDataSetChanged();
         });
 
         foodList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
