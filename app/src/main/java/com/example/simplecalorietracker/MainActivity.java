@@ -43,10 +43,15 @@ public class MainActivity extends AppCompatActivity implements
 
     public void updateTotalCalories(){
         int total = 0;
-        for (Food food: dataList){
-            total += food.getCalories();
+        if (!dataList.isEmpty()){
+            for (Food food: dataList){
+                total += food.getCalories();
+            }
+            totalCalories.setText("Total Calories: "+total);
         }
-        totalCalories.setText("Total Calories: "+total);
+        else{
+            totalCalories.setText("Add a food to get started!");
+        }
     }
 
     @Override
@@ -58,9 +63,9 @@ public class MainActivity extends AppCompatActivity implements
         int[] calories = {0};
 
         dataList = new ArrayList<>();
-        for (int i = 0; i < foods.length; i++) {
+        /*for (int i = 0; i < foods.length; i++) {
             dataList.add(new Food(foods[i], calories[i]));
-        }
+        }*/
         ListView foodList = findViewById(R.id.food_list);
         foodAdapter = new FoodArrayAdapter(this, dataList);
         foodList.setAdapter(foodAdapter);
