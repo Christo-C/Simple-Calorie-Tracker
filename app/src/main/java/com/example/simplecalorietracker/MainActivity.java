@@ -16,11 +16,22 @@ import java.util.Arrays;
 
 
 public class MainActivity extends AppCompatActivity implements
-        AddFoodFragment.AddFoodDialogListener {
+        AddFoodFragment.AddFoodDialogListener, ConfigureProfileFragment.ConfigureProfileDialogListener{
     private ArrayList<Food> dataList;
     private FoodArrayAdapter foodAdapter;
 
     private TextView totalCalories;
+
+    @Override
+    public void configureProfile(Profile profile, int age, boolean gender, int feet, int inches, int weight, ActivityLevel activityLevel, WeightLossGoal wlg) {
+
+    }
+
+    @Override
+    public void createProfile(Profile profile) {
+
+    }
+
     @Override
     public void addFood(Food food) {
         foodAdapter.add(food);

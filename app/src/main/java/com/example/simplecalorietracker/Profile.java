@@ -10,13 +10,16 @@ public class Profile implements Serializable {
     private int weight;
     private ActivityLevel activityLevel;
 
-    public Profile(int age, boolean gender, int feet, int inches, int weight, ActivityLevel activityLevel) {
+    private WeightLossGoal wlg;
+
+    public Profile(int age, boolean gender, int feet, int inches, int weight, ActivityLevel activityLevel, WeightLossGoal wlg) {
         this.age = age;
         this.gender = gender;
         this.feet = feet;
         this.inches = inches;
         this.weight = weight;
         this.activityLevel = activityLevel;
+        this.wlg = wlg;
     }
 
     public double getHeightInCm() {
