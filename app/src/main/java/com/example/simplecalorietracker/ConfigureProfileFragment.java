@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -78,6 +79,22 @@ public class ConfigureProfileFragment extends DialogFragment {
         wlgAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         weightLossGoal.setAdapter(wlgAdapter);
 
+        profile = (Profile) getArguments().getSerializable("profile");
+        if (profile != null){
+            editAge.setText(Integer.toString(profile.getAge()));
+            editWeight.setText(Integer.toString(profile.getWeight()));
+            editHeightFeet.setText(Integer.toString(profile.getWeight()));
+            editHeightInches.setText(Integer.toString(profile.getInches()));
+            if (profile.isGender()){
+                genderRadioGroup.check(R.id.radioButton_male);
+            }
+            else{
+                genderRadioGroup.check(R.id.radioButton_female);
+            }
+            activityLevel.setSelection(ActivityAdapter.getPosition(profile.getActivityLevel()));
+            weightLossGoal.setSelection(wlgAdapter.getPosition(profile.getWlg()));
+        }
+
         return builder
                 .setView(view)
                 .setTitle("Configure Profile")
@@ -87,11 +104,12 @@ public class ConfigureProfileFragment extends DialogFragment {
                     String weight = editWeight.getText().toString();
                     String feet = editHeightFeet.getText().toString();
                     String inches = editHeightInches.getText().toString();
-                    int selectedId = genderRadioGroup.getCheckedRadioButtonId();
                     boolean gender;
+                    int selectedId = genderRadioGroup.getCheckedRadioButtonId();
                     gender = selectedId == R.id.radioButton_male;
                     ActivityLevel selectedActivityLevel = (ActivityLevel) activityLevel.getSelectedItem();
                     WeightLossGoal selectedWLG = (WeightLossGoal) weightLossGoal.getSelectedItem();
+
                     if (profile == null){
                         listener.createProfile(new Profile(Integer.parseInt(age), gender,
                                 Integer.parseInt(feet), Integer.parseInt(inches), Integer.parseInt(weight),

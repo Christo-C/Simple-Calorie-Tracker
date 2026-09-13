@@ -82,4 +82,12 @@ public class Profile implements Serializable {
     public void setActivityLevel(ActivityLevel activityLevel) {
         this.activityLevel = activityLevel;
     }
+
+    public WeightLossGoal getWlg() {
+        return wlg;
+    }
+
+    public void setWlg(WeightLossGoal wlg) {
+        this.wlg = wlg;
+    }
 }

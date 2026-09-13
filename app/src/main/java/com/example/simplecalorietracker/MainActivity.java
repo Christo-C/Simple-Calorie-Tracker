@@ -22,14 +22,22 @@ public class MainActivity extends AppCompatActivity implements
 
     private TextView totalCalories;
 
+    private Profile userProfile;
+
     @Override
     public void configureProfile(Profile profile, int age, boolean gender, int feet, int inches, int weight, ActivityLevel activityLevel, WeightLossGoal wlg) {
-
+        userProfile.setAge(age);
+        userProfile.setGender(gender);
+        userProfile.setFeet(feet);
+        userProfile.setInches(inches);
+        userProfile.setWeight(weight);
+        userProfile.setActivityLevel(activityLevel);
+        userProfile.setWlg(wlg);
     }
 
     @Override
     public void createProfile(Profile profile) {
-
+        userProfile = profile;
     }
 
     @Override
@@ -93,6 +101,11 @@ public class MainActivity extends AppCompatActivity implements
             dataList.clear();
             updateTotalCalories();
             foodAdapter.notifyDataSetChanged();
+        });
+
+        Button configureProfileButton = findViewById(R.id.profile);
+        configureProfileButton.setOnClickListener(v -> {
+            ConfigureProfileFragment.newInstance(userProfile).show(getSupportFragmentManager(), "Configure Profile");
         });
 
         foodList.setOnItemClickListener(new AdapterView.OnItemClickListener() {

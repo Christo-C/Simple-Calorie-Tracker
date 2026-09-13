@@ -58,6 +58,7 @@ public class AddFoodFragment extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
         if (getArguments() != null){
+            System.out.println(getArguments());
             food = (Food) getArguments().getSerializable("food");
             editFoodName.setText(food.getName());
             editCaloriesAmt.setText(Integer.toString(food.getCalories()));
