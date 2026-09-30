@@ -27,12 +27,17 @@ public class Profile implements Serializable {
     }
 
     public double calculateBMR() {
+        double kg = weight * 0.45359237;
         if (gender){
-            return 10 * weight + 6.25 * getHeightInCm() - 5 * age + 5;
+            return 10 * kg + 6.25 * getHeightInCm() - 5 * age + 5;
         }
         else{
-            return 10 * weight + 6.25 * getHeightInCm() - 5 * age - 161;
+            return 10 * kg + 6.25 * getHeightInCm() - 5 * age - 161;
         }
+    }
+
+    public double calculateTDEE() {
+        return (calculateBMR() * activityLevel.getMultiplier()) - wlg.getGoal();
     }
 
     public int getAge() {

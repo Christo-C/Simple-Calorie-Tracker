@@ -83,7 +83,7 @@ public class ConfigureProfileFragment extends DialogFragment {
         if (profile != null){
             editAge.setText(Integer.toString(profile.getAge()));
             editWeight.setText(Integer.toString(profile.getWeight()));
-            editHeightFeet.setText(Integer.toString(profile.getWeight()));
+            editHeightFeet.setText(Integer.toString(profile.getFeet()));
             editHeightInches.setText(Integer.toString(profile.getInches()));
             if (profile.isGender()){
                 genderRadioGroup.check(R.id.radioButton_male);

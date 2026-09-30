@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity implements
     private FoodArrayAdapter foodAdapter;
 
     private TextView totalCalories;
+    private TextView remainingCalories;
 
     private Profile userProfile;
 
@@ -33,11 +34,13 @@ public class MainActivity extends AppCompatActivity implements
         userProfile.setWeight(weight);
         userProfile.setActivityLevel(activityLevel);
         userProfile.setWlg(wlg);
+        updateTotalCalories();
     }
 
     @Override
     public void createProfile(Profile profile) {
         userProfile = profile;
+        updateTotalCalories();
     }
 
     @Override
@@ -62,14 +65,20 @@ public class MainActivity extends AppCompatActivity implements
 
     public void updateTotalCalories(){
         int total = 0;
+        double remaining = 0;
         if (!dataList.isEmpty()){
             for (Food food: dataList){
                 total += food.getCalories();
             }
             totalCalories.setText("Total Calories: "+total);
+            if (userProfile != null){
+                remaining = userProfile.calculateTDEE() - total;
+                remainingCalories.setText("Remaining Calories: "+String.format("%.0f", remaining));
+            }
         }
         else{
             totalCalories.setText("Add a food to get started!");
+            remainingCalories.setText("Create a profile to see remaining calories!");
         }
     }
 
@@ -78,18 +87,13 @@ public class MainActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        String[] foods = {"Water"};
-        int[] calories = {0};
-
         dataList = new ArrayList<>();
-        /*for (int i = 0; i < foods.length; i++) {
-            dataList.add(new Food(foods[i], calories[i]));
-        }*/
         ListView foodList = findViewById(R.id.food_list);
         foodAdapter = new FoodArrayAdapter(this, dataList);
         foodList.setAdapter(foodAdapter);
 
         totalCalories = findViewById(R.id.total_calories);
+        remainingCalories = findViewById(R.id.remaining_calories);
 
         Button addFoodButton = findViewById(R.id.add_food);
         addFoodButton.setOnClickListener(v -> {
@@ -99,8 +103,8 @@ public class MainActivity extends AppCompatActivity implements
         Button clearFoodButton = findViewById(R.id.clear_food);
         clearFoodButton.setOnClickListener(v -> {
             dataList.clear();
-            updateTotalCalories();
             foodAdapter.notifyDataSetChanged();
+            updateTotalCalories();
         });
 
         Button configureProfileButton = findViewById(R.id.profile);
